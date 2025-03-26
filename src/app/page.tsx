@@ -42,6 +42,14 @@ export default function RandomStratGenerator() {
       desc: "Knock an enemy and all gather around trapping them in and emoting on them."
     },
     {
+      title: "UAV Inbound",
+      desc: "All 4 randomly UAV drop to elimate the high value target."
+    },
+    {
+      title: "Roth",
+      desc: "Roth"
+    },
+    {
       title: "Goonilla Warfare",
       desc: "Hide in camoflaughe, knock then flush then run away to a different bush."
     },
