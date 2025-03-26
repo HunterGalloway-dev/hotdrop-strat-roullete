@@ -11,9 +11,6 @@ interface Strategy {
 
 export default function RandomStratGenerator() {
   // Predefined lists
-  const names = [
-    'Roth', 'Monster', 'Cowboii', 'Relo'
-  ];
 
   const strats: Strategy[] = [
     {
@@ -117,7 +114,7 @@ export default function RandomStratGenerator() {
   // Generate initial values on component mount
   useEffect(() => {
     generateRandomPair();
-  }, []);
+  }, [generateRandomPair]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-900 to-green-700 flex flex-col items-center justify-center p-4">
