@@ -1,103 +1,205 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+
+// Define types for the strategy
+interface Strategy {
+  title: string;
+  desc: string;
+}
+
+export default function RandomStratGenerator() {
+  // Predefined lists
+  const names = [
+    'Roth', 'Monster', 'Cowboii', 'Relo'
+  ];
+
+  const strats: Strategy[] = [
+    {
+      title: "Goonado Gauntlet",
+      desc: "Run around in a tornado formation for as long as possible without dying"
+    },
+    {
+      title: "Sneaky Beaky Like",
+      desc: "All 4 randomly choose a corner to prone out in and wait to get theirs."
+    },
+    {
+      title: "Hostage Situation",
+      desc: "Knock and extract high value target in vehicle as far as possible from enemy combatents for interogation."
+    },
+    {
+      title: "Explosive Finish",
+      desc: "Knock a guy normally and flush with a panzer then mag dump the body."
+    },
+    {
+      title: "Rim Job",
+      desc: "Land and secure all vehicles onto a singular position then proceed to blow them all up and die in the flames."
+    },
+    {
+      title: "4 Dude 1 Couch",
+      desc: "Knock an enemy and all gather around trapping them in and emoting on them."
+    },
+    {
+      title: "Goonilla Warfare",
+      desc: "Hide in camoflaughe, knock then flush then run away to a different bush."
+    },
+    {
+      title: "Loot Denial",
+      desc: "Land directly on top tier loot spots and grab all high tier loot, then retreat."
+    },
+    {
+      title: "Weapon Roulette",
+      desc: "Grab only one type of weapon between all four players. Everyone gets identical loadouts."
+    },
+    {
+      title: "First Blood",
+      desc: "Focus fire to instantly eliminate one specific enemy player in the first 10 seconds, regardless of cost and then disengage just to third party their next fight."
+    },
+    {
+      title: "Leap Frog",
+      desc: "Land separately then constantly rotate positions in a circular pattern, never engaging from the same angle twice."
+    },
+    {
+      title: "Window Pain",
+      desc: "Focus only on shooting through windows, never push inside buildings regardless of knocks."
+    },
+    {
+      title: "False Security",
+      desc: "Hide directly behind the target team during landing, letting them think they're safe before striking."
+    },
+    {
+      title: "Sound Warfare",
+      desc: "Keep shooting non-stop in their vicinity without direct engagement to drain focus and create anxiety."
+    },
+    {
+      title: "IGL Hunter",
+      desc: "Identify and relentlessly pursue their shot-caller while avoiding the rest of the team."
+    },
+    {
+      title: "The Gauntlet",
+      desc: "Create a corridor of death between where they land and the nearest loot location."
+    },
+    {
+      title: "Revenge Tour",
+      desc: "Target whoever knocked your teammate with extreme prejudice, even if it means sacrificing tactical advantage."
+    },
+    {
+      title: "Thirst Master",
+      desc: "Immediately finish any knock without regard for personal safety or tactical position."
+    },
+    {
+      title: "Vulture Squad",
+      desc: "Hide nearby until they get into a fight with another team, then third party at the most frustrating moment."
+    },
+  ];
+
+  // State for current selections - Fix type definitions here
+  const [selectedName, setSelectedName] = useState<string>('');
+  const [selectedStrat, setSelectedStrat] = useState<Strategy | null>(null);
+  const [isGenerating, setIsGenerating] = useState<boolean>(false);
+
+  // Function to randomly select a name and strat
+  const generateRandomPair = () => {
+    setIsGenerating(true);
+
+    // Reset current selections
+    setSelectedName('');
+    setSelectedStrat(null);
+
+    // Delayed selection for animation effect
+    setTimeout(() => {
+      const randomName = names[Math.floor(Math.random() * names.length)];
+      const randomStrat = strats[Math.floor(Math.random() * strats.length)];
+
+      setSelectedName(randomName);
+      setSelectedStrat(randomStrat);
+      setIsGenerating(false);
+    }, 500);
+  };
+
+  // Generate initial values on component mount
+  useEffect(() => {
+    generateRandomPair();
+  }, []);
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-blue-900 flex flex-col items-center justify-center p-4">
+      <div className="max-w-md w-full bg-white/10 backdrop-blur-lg rounded-xl shadow-2xl overflow-hidden">
+        <div className="p-8">
+          <h1 className="text-3xl font-bold text-center text-white mb-8">High Value Target Generator</h1>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+          <div className="space-y-6 mb-8">
+            {/* Strats List */}
+            <div className="bg-white/5 rounded-lg p-4">
+              <h2 className="text-xl font-semibold text-blue-300 mb-2">Available Strategies</h2>
+              <div className="flex flex-wrap gap-2">
+                {strats.map((strat) => (
+                  <span
+                    key={strat.title}
+                    className={`px-3 py-1 rounded-full text-sm font-medium ${selectedStrat && selectedStrat.title === strat.title
+                      ? 'bg-blue-500 text-white'
+                      : 'bg-white/10 text-gray-300'
+                      }`}
+                  >
+                    {strat.title}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Results Section */}
+          <div className="bg-white/5 rounded-lg p-6 text-center mb-8">
+            <h2 className="text-xl font-semibold text-blue-300 mb-4">Current Assignment</h2>
+            {isGenerating ? (
+              <div className="flex justify-center items-center h-20">
+                <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <motion.p
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="text-2xl font-bold text-white"
+                >
+                  {selectedName}
+                </motion.p>
+                {selectedStrat && (
+                  <div className="space-y-2">
+                    <motion.p
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, delay: 0.2 }}
+                      className="text-xl text-blue-300"
+                    >
+                      {selectedStrat.title}
+                    </motion.p>
+                    <motion.p
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, delay: 0.4 }}
+                      className="text-sm text-gray-300 italic"
+                    >
+                      {selectedStrat.desc}
+                    </motion.p>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* Action Button */}
+          <button
+            onClick={generateRandomPair}
+            disabled={isGenerating}
+            className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300 ease-in-out transform hover:-translate-y-1 flex items-center justify-center"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            {isGenerating ? 'Generating...' : 'Generate New Target'}
+          </button>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
     </div>
   );
 }
