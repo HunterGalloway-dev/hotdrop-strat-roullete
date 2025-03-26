@@ -31,7 +31,11 @@ export default function RandomStratGenerator() {
     },
     {
       title: "Rim Job",
-      desc: "Land and secure all vehicles onto a singular position then proceed to blow them all up and die in the flames."
+      desc: "Land and secure all vehicles onto a singular position then proceed to pop all tires and disapear."
+    },
+    {
+      title: "Goonferno",
+      desc: "Gather all vehicles into a central location to stand on top of them while they all explode."
     },
     {
       title: "4 Dude 1 Couch",
