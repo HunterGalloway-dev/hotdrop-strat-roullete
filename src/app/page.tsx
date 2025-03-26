@@ -94,7 +94,7 @@ export default function RandomStratGenerator() {
     },
   ];
 
-  // State for current selections - Fix type definitions here
+  // State for current selections
   const [selectedName, setSelectedName] = useState<string>('');
   const [selectedStrat, setSelectedStrat] = useState<Strategy | null>(null);
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
@@ -124,37 +124,17 @@ export default function RandomStratGenerator() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-blue-900 flex flex-col items-center justify-center p-4">
-      <div className="max-w-md w-full bg-white/10 backdrop-blur-lg rounded-xl shadow-2xl overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-green-900 to-green-700 flex flex-col items-center justify-center p-4">
+      <div className="max-w-md w-full bg-black/30 backdrop-blur-lg rounded-xl shadow-2xl overflow-hidden border-2 border-green-400">
         <div className="p-8">
-          <h1 className="text-3xl font-bold text-center text-white mb-8">High Value Target Generator</h1>
+          <h1 className="text-3xl font-bold text-center text-green-300 mb-8">GOON SQUAD TACTICS</h1>
 
-          <div className="space-y-6 mb-8">
-            {/* Strats List */}
-            <div className="bg-white/5 rounded-lg p-4">
-              <h2 className="text-xl font-semibold text-blue-300 mb-2">Available Strategies</h2>
-              <div className="flex flex-wrap gap-2">
-                {strats.map((strat) => (
-                  <span
-                    key={strat.title}
-                    className={`px-3 py-1 rounded-full text-sm font-medium ${selectedStrat && selectedStrat.title === strat.title
-                      ? 'bg-blue-500 text-white'
-                      : 'bg-white/10 text-gray-300'
-                      }`}
-                  >
-                    {strat.title}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Results Section */}
-          <div className="bg-white/5 rounded-lg p-6 text-center mb-8">
-            <h2 className="text-xl font-semibold text-blue-300 mb-4">Current Assignment</h2>
+          {/* Results Section - MOVED ABOVE */}
+          <div className="bg-black/20 rounded-lg p-6 text-center mb-8 border border-green-500/50">
+            <h2 className="text-xl font-semibold text-green-400 mb-4">Target Assignment</h2>
             {isGenerating ? (
               <div className="flex justify-center items-center h-20">
-                <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
+                <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-green-500"></div>
               </div>
             ) : (
               <div className="space-y-4">
@@ -162,9 +142,8 @@ export default function RandomStratGenerator() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3 }}
-                  className="text-2xl font-bold text-white"
+                  className="text-2xl font-bold text-green-300"
                 >
-                  {selectedName}
                 </motion.p>
                 {selectedStrat && (
                   <div className="space-y-2">
@@ -172,7 +151,7 @@ export default function RandomStratGenerator() {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.3, delay: 0.2 }}
-                      className="text-xl text-blue-300"
+                      className="text-xl text-green-400"
                     >
                       {selectedStrat.title}
                     </motion.p>
@@ -180,7 +159,7 @@ export default function RandomStratGenerator() {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.3, delay: 0.4 }}
-                      className="text-sm text-gray-300 italic"
+                      className="text-sm text-green-200 italic"
                     >
                       {selectedStrat.desc}
                     </motion.p>
@@ -190,14 +169,34 @@ export default function RandomStratGenerator() {
             )}
           </div>
 
-          {/* Action Button */}
+          {/* Action Button - MOVED ABOVE */}
           <button
             onClick={generateRandomPair}
             disabled={isGenerating}
-            className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300 ease-in-out transform hover:-translate-y-1 flex items-center justify-center"
+            className="w-full bg-gradient-to-r from-green-600 to-green-800 hover:from-green-700 hover:to-green-900 text-green-100 font-bold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300 ease-in-out transform hover:-translate-y-1 flex items-center justify-center border-2 border-green-500 mb-8"
           >
-            {isGenerating ? 'Generating...' : 'Generate New Target'}
+            {isGenerating ? 'DEPLOYING GOONS...' : 'ASSIGN GOON MISSION'}
           </button>
+
+          <div className="space-y-6">
+            {/* Strats List */}
+            <div className="bg-black/20 rounded-lg p-4 border border-green-500/50">
+              <h2 className="text-xl font-semibold text-green-400 mb-2">Available Strats</h2>
+              <div className="flex flex-wrap gap-2">
+                {strats.map((strat) => (
+                  <span
+                    key={strat.title}
+                    className={`px-3 py-1 rounded-full text-sm font-medium ${selectedStrat && selectedStrat.title === strat.title
+                      ? 'bg-green-500 text-black font-bold'
+                      : 'bg-black/30 text-green-300 border border-green-500/30'
+                      }`}
+                  >
+                    {strat.title}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
