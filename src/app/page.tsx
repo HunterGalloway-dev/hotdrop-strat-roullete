@@ -95,7 +95,7 @@ export default function RandomStratGenerator() {
   ];
 
   // State for current selections
-  const [selectedName, setSelectedName] = useState<string>('');
+
   const [selectedStrat, setSelectedStrat] = useState<Strategy | null>(null);
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
 
@@ -104,15 +104,11 @@ export default function RandomStratGenerator() {
     setIsGenerating(true);
 
     // Reset current selections
-    setSelectedName('');
     setSelectedStrat(null);
 
     // Delayed selection for animation effect
     setTimeout(() => {
-      const randomName = names[Math.floor(Math.random() * names.length)];
       const randomStrat = strats[Math.floor(Math.random() * strats.length)];
-
-      setSelectedName(randomName);
       setSelectedStrat(randomStrat);
       setIsGenerating(false);
     }, 500);
